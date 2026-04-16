@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan Norvégien Homme v4 — 12 semaines — Seb Run Nature</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --g:#2d9e72;--g2:#1e7a56;--g3:#0d3326;
+  --glt:#e8f7f1;--glt2:#f0fdf4;
+  --amb:#e8a020;--amb-lt:#fef3c7;
+  --red:#e05252;--red-lt:#fee2e2;
+  --violet:#7c3aed;--violet-lt:#ede9fe;
+  --bg:#f4f8f5;--card:#ffffff;
+  --text:#1e2e28;--mut:#6b7280;--brd:#d8ece4;
+  --shad:0 4px 24px rgba(45,158,114,.10);
+  --r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Nunito',sans-serif;font-size:15px;line-height:1.6;min-height:100vh;}
+
+/* HEADER */
+.header{background:linear-gradient(135deg,var(--g3),var(--g2));padding:22px 24px;display:flex;align-items:center;gap:14px;box-shadow:0 4px 20px rgba(0,0,0,.2);}
+.header-ico{width:42px;height:42px;background:rgba(255,255,255,.12);border-radius:10px;display:flex;align-items:center;justify-content:center;}
+.header-title{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:#fff;letter-spacing:1px;line-height:1;}
+.header-sub{font-size:.75rem;color:rgba(255,255,255,.6);font-weight:600;letter-spacing:.5px;text-transform:uppercase;}
+.header-badge{margin-left:auto;background:rgba(168,240,208,.15);border:1px solid rgba(168,240,208,.3);color:#a8f0d0;border-radius:20px;padding:4px 14px;font-size:.72rem;font-weight:700;letter-spacing:.5px;}
+
+/* WRAP */
+.wrap{max-width:900px;margin:0 auto;padding:28px 16px 60px;}
+
+/* CARDS */
+.card{background:var(--card);border-radius:var(--r);box-shadow:var(--shad);padding:24px;margin-bottom:20px;}
+.card-title{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:1px;color:var(--g);margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+
+/* FORM */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.form-group{display:flex;flex-direction:column;gap:6px;}
+.form-group.full{grid-column:1/-1;}
+label{font-size:.78rem;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.4px;}
+input,select{width:100%;padding:10px 14px;border:1.5px solid var(--brd);border-radius:9px;font-size:.9rem;font-family:'Nunito',sans-serif;color:var(--text);background:#fff;transition:border-color .2s;}
+input:focus,select:focus{outline:none;border-color:var(--g);}
+small{font-size:.72rem;color:var(--mut);}
+
+/* CHEMIN */
+.chemin-toggle{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;}
+.chemin-btn{padding:12px;border:2px solid var(--brd);border-radius:10px;background:#fff;cursor:pointer;text-align:center;transition:all .2s;font-family:'Nunito',sans-serif;}
+.chemin-btn.active{border-color:var(--g);background:var(--glt);color:var(--g2);}
+.chemin-btn .cb-icon{font-size:1.4rem;display:block;margin-bottom:4px;}
+.chemin-btn .cb-label{font-size:.82rem;font-weight:700;display:block;}
+.chemin-btn .cb-sub{font-size:.7rem;color:var(--mut);display:block;margin-top:2px;}
+.chemin-section{display:none;}
+.chemin-section.show{display:block;}
+
+/* TEST BOX */
+.test-box{background:var(--amb-lt);border:1px solid #fcd99a;border-radius:12px;padding:18px 20px;margin-bottom:16px;}
+.test-box h4{color:#92400e;font-size:.88rem;font-weight:800;margin-bottom:8px;}
+.test-steps{list-style:none;counter-reset:step;}
+.test-steps li{counter-increment:step;padding:6px 0 6px 32px;position:relative;font-size:.83rem;}
+.test-steps li::before{content:counter(step);position:absolute;left:0;top:6px;width:22px;height:22px;background:var(--amb);color:#fff;border-radius:50%;font-size:.7rem;font-weight:800;display:flex;align-items:center;justify-content:center;}
+
+/* ZONES */
+.zones-legend{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
+.zone-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;font-size:.75rem;font-weight:700;}
+.z-ef{background:#dcfce7;color:#166534;}
+.z-s1{background:#fef9c3;color:#854d0e;}
+.z-s2{background:#ffedd5;color:#9a3412;}
+.z-max{background:#fee2e2;color:#991b1b;}
+
+/* TERRAIN */
+.terrain-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:20px;font-size:.72rem;font-weight:700;}
+.terrain-route{background:#dbeafe;color:#1e40af;}
+.terrain-trail{background:#dcfce7;color:#166534;}
+.terrain-ultra{background:var(--amb-lt);color:#92400e;}
+
+/* BTN */
+.btn-gen{width:100%;padding:16px;background:linear-gradient(135deg,var(--g2),var(--g));color:#fff;border:none;border-radius:11px;font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:2px;cursor:pointer;transition:opacity .2s;margin-top:8px;}
+.btn-gen:hover{opacity:.88;}
+.btn-gen:active{transform:scale(.99);}
+
+/* PLAN HEADER */
+#planOutput{display:none;}
+.plan-header{background:linear-gradient(135deg,var(--g3),var(--g2));border-radius:var(--r);padding:24px;margin-bottom:20px;color:#fff;}
+.plan-title{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;letter-spacing:1px;color:#a8f0d0;margin-bottom:6px;}
+.plan-meta{font-size:.82rem;color:rgba(255,255,255,.65);display:flex;flex-wrap:wrap;gap:12px;margin-bottom:14px;}
+.plan-allures{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;}
+.pac-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:10px 14px;text-align:center;}
+.pac-val{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#a8f0d0;line-height:1;}
+.pac-lbl{font-size:.65rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.4px;margin-top:3px;}
+
+/* WEEK NAV */
+.week-nav{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap;}
+.week-nav-btn{padding:8px 18px;border:1.5px solid var(--brd);border-radius:8px;background:#fff;cursor:pointer;font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:700;color:var(--text);transition:all .2s;}
+.week-nav-btn:hover:not(:disabled){border-color:var(--g);color:var(--g);}
+.week-nav-btn:disabled{opacity:.35;cursor:default;}
+.week-info{flex:1;text-align:center;}
+.week-num{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--g);letter-spacing:1px;}
+.week-phase{font-size:.72rem;color:var(--mut);font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+.week-progress{height:4px;background:var(--glt);border-radius:4px;margin-bottom:20px;overflow:hidden;}
+.week-progress-fill{height:100%;background:linear-gradient(90deg,var(--g2),var(--g));border-radius:4px;transition:width .4s ease;}
+
+/* DAY CARDS */
+.week-grid{display:grid;gap:10px;}
+.day-card{background:#fff;border:1px solid var(--brd);border-radius:12px;overflow:hidden;}
+.day-header{padding:10px 16px;display:flex;align-items:center;justify-content:space-between;background:var(--glt2);border-bottom:1px solid var(--brd);}
+.day-name{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.5px;}
+.day-vol{font-size:.72rem;color:var(--mut);}
+.day-sessions{padding:0 16px 14px;display:flex;flex-direction:column;gap:8px;}
+.session{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:8px;}
+.session-time{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--mut);min-width:48px;padding-top:2px;}
+.session-content{flex:1;}
+.session-title{font-size:.83rem;font-weight:700;margin-bottom:2px;}
+.session-detail{font-size:.75rem;color:var(--mut);line-height:1.5;}
+.s-ef{background:#dcfce7;}.s-ef .session-title{color:#166534;}
+.s-s1{background:#fef9c3;}.s-s1 .session-title{color:#854d0e;}
+.s-s2{background:#ffedd5;}.s-s2 .session-title{color:#9a3412;}
+.s-max{background:#fee2e2;}.s-max .session-title{color:#991b1b;}
+.s-renfo{background:var(--violet-lt);}.s-renfo .session-title{color:#5b21b6;}
+.s-repos{background:#f3f4f6;}.s-repos .session-title{color:#6b7280;}
+.session-check{display:flex;align-items:center;gap:8px;padding:6px 12px;border-top:1px solid rgba(0,0,0,.06);cursor:pointer;user-select:none;}
+.session-check input[type=checkbox]{width:16px;height:16px;accent-color:var(--g);cursor:pointer;flex-shrink:0;}
+.session-check-label{font-size:.72rem;color:var(--mut);font-weight:600;}
+.session.done{opacity:.55;position:relative;}
+.session.done::after{content:'Effectue';position:absolute;top:6px;right:10px;font-size:.65rem;font-weight:800;color:var(--g);background:#dcfce7;border-radius:6px;padding:1px 7px;}
+.week-summary{margin-top:12px;background:var(--bg);border:1px solid var(--brd);border-radius:12px;padding:16px 20px;}
+.ws-title{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);margin-bottom:10px;}
+.ws-bar-wrap{background:#e5e7eb;border-radius:6px;height:10px;overflow:hidden;margin-bottom:10px;}
+.ws-bar{height:100%;background:linear-gradient(90deg,var(--g2),var(--g));border-radius:6px;transition:width .4s ease;}
+.ws-stats{display:flex;gap:16px;align-items:center;flex-wrap:wrap;}
+.ws-pct{font-size:1.4rem;font-weight:800;color:var(--g);}
+.ws-detail{font-size:.78rem;color:var(--mut);}
+.ws-msg{margin-top:10px;font-size:.82rem;font-style:italic;color:var(--text);padding:8px 14px;background:#fff;border-left:3px solid var(--g);border-radius:0 8px 8px 0;line-height:1.6;}
+.btn-print-week{display:flex;align-items:center;gap:7px;padding:9px 18px;background:var(--bg);border:1.5px solid var(--brd);border-radius:9px;font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:700;color:var(--text);cursor:pointer;transition:border-color .2s;}
+.btn-print-week:hover{border-color:var(--g);color:var(--g);}
+.warn-local{font-size:.68rem;color:#9ca3af;margin-top:8px;text-align:center;}
+.s-renfo a{color:var(--violet);font-weight:700;font-size:.72rem;}
+
+/* ACTIONS */
+.actions-bar{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;}
+.btn-action{padding:10px 18px;border-radius:9px;font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;border:1.5px solid;transition:all .2s;}
+.btn-save{background:var(--g);color:#fff;border-color:var(--g);}
+.btn-export{background:#fff;color:var(--g2);border-color:var(--g);}
+.btn-import{background:#fff;color:var(--mut);border-color:var(--brd);}
+.btn-reset{background:#fff;color:var(--red);border-color:var(--red);}
+
+/* FOOTER */
+.footer{text-align:center;padding:24px 16px;font-size:.78rem;color:var(--mut);border-top:1px solid var(--brd);margin-top:20px;}
+.footer a{color:var(--g);font-weight:700;text-decoration:none;}
+.footer a:hover{text-decoration:underline;}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a2620;color:#e8f5f0;padding:12px 22px;border-radius:10px;font-size:.85rem;font-weight:700;z-index:9999;transition:transform .3s;pointer-events:none;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+
+@media(max-width:600px){
+  .form-grid{grid-template-columns:1fr;}
+  .form-group.full{grid-column:1;}
+  .plan-allures{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-ico">
+    <svg width="24" height="24" viewBox="0 0 44 44" fill="none">
+      <path d="M8 34 L16 18 L22 26 L30 12 L36 20" stroke="#a8f0d0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <circle cx="30" cy="12" r="3" fill="#a8f0d0"/>
+    </svg>
+  </div>
+  <div>
+    <div class="header-title">Plan Norvégien — Homme</div>
+    <div class="header-sub">12 semaines · Méthode Bakken · Seb Run Nature</div>
+  </div>
+  <div class="header-badge">🏔️ Méthode Bakken</div>
+</div>
+
+<div class="wrap">
+
+<!-- ZONES -->
+<div class="card">
+  <div class="card-title">🎯 Les 4 zones d'intensité</div>
+  <div class="zones-legend">
+    <div class="zone-pill z-ef">🟢 EF — Tu parles normalement</div>
+    <div class="zone-pill z-s1">🟡 Seuil 1 — Quelques mots seulement</div>
+    <div class="zone-pill z-s2">🟠 Seuil 2 — 2-3 mots max</div>
+    <div class="zone-pill z-max">🔴 Au-delà — Impossible de parler</div>
+  </div>
+  <p style="font-size:.82rem;color:var(--mut);">La méthode norvégienne repose sur <strong>80% du volume en EF</strong> et 20% en seuil. Les jours verts doivent être vraiment verts — c'est la clé du système.</p>
+  <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:8px;">
+    <span class="terrain-badge terrain-route">🏙️ Route — méthode originale pure</span>
+    <span class="terrain-badge terrain-trail">🌲 Trail mixte — côtes remplacent les répétitions plates</span>
+    <span class="terrain-badge terrain-ultra">⛰️ Ultra D+ — montées sèches + sorties avec dénivelé</span>
+  </div>
+</div>
+
+<!-- PROFIL -->
+<div class="card">
+  <div class="card-title">👤 Ton profil</div>
+  <div class="form-grid">
+    <div class="form-group">
+      <label>Catégorie d'âge</label>
+      <select id="catAge">
+        <option value="SE">SE — Senior (moins de 35 ans)</option>
+        <option value="M35">M35 (35–39 ans)</option>
+        <option value="M40">M40 (40–44 ans)</option>
+        <option value="M45" selected>M45 (45–49 ans)</option>
+        <option value="M50">M50 (50–54 ans)</option>
+        <option value="M55">M55 (55–59 ans)</option>
+        <option value="M60">M60 (60–64 ans)</option>
+        <option value="M65">M65+ (65 ans et plus)</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Niveau actuel</label>
+      <select id="niveau">
+        <option value="debutant">Débutant — je cours depuis moins de 1 an</option>
+        <option value="intermediaire" selected>Intermédiaire — je cours régulièrement</option>
+        <option value="avance">Avancé — compétitions régulières</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Objectif course</label>
+      <select id="objectif">
+        <option value="5">5 km</option>
+        <option value="10" selected>10 km</option>
+        <option value="15">15 km</option>
+        <option value="21">Semi-marathon 21 km</option>
+        <option value="42">Marathon 42 km</option>
+        <option value="50">Ultra 50 km</option>
+        <option value="55">Ultra 55 km</option>
+        <option value="60">Ultra 60 km</option>
+        <option value="65">Ultra 65 km</option>
+        <option value="70">Ultra 70 km</option>
+        <option value="75">Ultra 75 km</option>
+        <option value="80">Ultra 80 km</option>
+        <option value="85">Ultra 85 km</option>
+        <option value="90">Ultra 90 km</option>
+        <option value="95">Ultra 95 km</option>
+        <option value="100">Ultra 100 km</option>
+        <option value="120">Ultra Extrême 120 km</option>
+        <option value="140">Ultra Extrême 140 km</option>
+        <option value="160">Ultra Extrême 160 km</option>
+        <option value="180">Ultra Extrême 180 km</option>
+        <option value="200">Ultra Extrême 200 km</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Type de terrain</label>
+      <select id="terrain">
+        <option value="route">🏙️ Route / Piste</option>
+        <option value="trail">🌲 Trail mixte</option>
+        <option value="ultra">⛰️ Ultra trail D+</option>
+      </select>
+    </div>
+    <div class="form-group" id="dplusGroup" style="display:none;">
+      <label>D+ objectif de la course (m)</label>
+      <input type="number" id="dplusCourse" placeholder="Ex: 2162" min="0" max="10000" step="50">
+      <small>Dénivelé positif total de ta course objectif</small>
+    </div>
+    <div class="form-group">
+      <label>Nom de la compétition</label>
+      <input type="text" id="nomCourse" placeholder="Ex: Trail Uewersauer 2026">
+    </div>
+    <div class="form-group">
+      <label>Date de la compétition</label>
+      <input type="date" id="dateCourse">
+    </div>
+  </div>
+</div>
+
+<!-- PERFORMANCE -->
+<div class="card">
+  <div class="card-title">⚡ Ta référence de performance</div>
+  <div class="chemin-toggle">
+    <button class="chemin-btn active" onclick="setChemin('chrono')" id="btnChrono">
+      <span class="cb-icon">⏱️</span>
+      <span class="cb-label">J'ai un chrono</span>
+      <span class="cb-sub">5k ou 10k récent</span>
+    </button>
+    <button class="chemin-btn" onclick="setChemin('test')" id="btnTest">
+      <span class="cb-icon">🏃</span>
+      <span class="cb-label">Pas de chrono</span>
+      <span class="cb-sub">Test 20 minutes</span>
+    </button>
+  </div>
+  <div class="chemin-section show" id="sectionChrono">
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Distance de référence</label>
+        <select id="distRef">
+          <option value="5">5 km</option>
+          <option value="10" selected>10 km</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Ton chrono (mm:ss)</label>
+        <input type="text" id="chrono" placeholder="Ex: 38:26">
+      </div>
+    </div>
+  </div>
+  <div class="chemin-section" id="sectionTest">
+    <div class="test-box">
+      <h4>🏃 Test 20 minutes — ton seuil 2</h4>
+      <ol class="test-steps">
+        <li>Échauffe-toi 10 minutes en marchant ou trottinant</li>
+        <li>Lance ton chrono et cours 20 minutes à une allure où tu ne peux dire que 2-3 mots</li>
+        <li>Note la distance parcourue exactement</li>
+        <li>Entre-la ci-dessous</li>
+      </ol>
+    </div>
+    <div class="form-group">
+      <label>Distance parcourue en 20 min (km)</label>
+      <input type="number" id="distTest" placeholder="Ex: 3.8" step="0.1" min="1" max="8">
+    </div>
+  </div>
+</div>
+
+<button class="btn-gen" onclick="genererPlan()">🏔️ GÉNÉRER MON PLAN NORVÉGIEN 12 SEMAINES</button>
+
+<!-- OUTPUT -->
+<div id="planOutput">
+  <div class="plan-header" id="planHeader"></div>
+  <div class="actions-bar">
+    <button class="btn-action btn-save" onclick="sauvegarder()">💾 Sauvegarder</button>
+    <button class="btn-action btn-export" onclick="exporterJSON()">📤 Exporter JSON</button>
+    <button class="btn-action btn-import" onclick="document.getElementById('importFile').click()">📥 Importer</button>
+    <button class="btn-action btn-reset" onclick="resetPlan()">🗑 Effacer</button>
+    <input type="file" id="importFile" accept=".json" style="display:none" onchange="importerJSON(event)">
+  </div>
+  <div class="card" style="margin-top:16px;">
+    <div class="week-nav">
+      <button class="week-nav-btn" id="btnPrev" onclick="changerSemaine(-1)">← Précédente</button>
+      <div class="week-info">
+        <div class="week-num" id="weekNum">Semaine 1 / 12</div>
+        <div class="week-dates" id="weekDates" style="font-size:.72rem;color:var(--mut);font-weight:600;margin-top:2px;"></div>
+        <div class="week-phase" id="weekPhase">Construction</div>
+      </div>
+      <button class="week-nav-btn" id="btnNext" onclick="changerSemaine(1)">Suivante →</button>
+    </div>
+    <div class="week-progress"><div class="week-progress-fill" id="weekProgressFill"></div></div>
+    <div class="week-grid" id="weekGrid"></div>
+    <div id="weekSummary" style="display:none;"><div class="week-summary"><div class="ws-title">Resume de la semaine</div><div class="ws-bar-wrap"><div class="ws-bar" id="wsSumBar" style="width:0%"></div></div><div class="ws-stats"><div class="ws-pct" id="wsSumPct">0%</div><div class="ws-detail" id="wsSumDetail">0 seance effectuee</div></div><div class="ws-msg" id="wsSumMsg"></div><div class="warn-local">Les coches sont sauvegardees dans ce navigateur uniquement. Elles ne se synchronisent pas entre appareils.</div></div><div style="display:flex;justify-content:flex-end;margin-top:10px;"><button class="btn-print-week" onclick="imprimerSemaine()">Imprimer cette semaine</button></div></div>
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  🏔️ Conçu avec passion par <a href="https://www.seb-run-nature.com" target="_blank" rel="noopener">Seb Run Nature</a>
+  &nbsp;·&nbsp; Données stockées localement · Zéro cloud · Zéro inscription
+  &nbsp;·&nbsp; <span id="footerYear"></span>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ══════════════════════════════════════════════
+// ÉTAT
+// ══════════════════════════════════════════════
+let currentWeek = 0;
+let planData = null;
+let cheminActif = 'chrono';
+
+// LIENS RENFO
+const RENFO_BAS  = 'https://www.seb-run-nature.com/2026/03/5-exercices-bas-du-corps-pour-dominer-en-trail.html';
+const RENFO_HAUT = 'https://www.seb-run-nature.com/2026/03/5-exercices-haut-du-corps-pour-progresser-en-trail.html';
+const renfoLink  = `Gainage, squats, mollets, ischios — 30 min · <a href="${RENFO_BAS}" target="_blank" rel="noopener">Bas du corps ↗</a> · <a href="${RENFO_HAUT}" target="_blank" rel="noopener">Haut du corps ↗</a>`;
+const renfoFull  = `Circuit complet — 40 min avec gilet si dispo · <a href="${RENFO_BAS}" target="_blank" rel="noopener">Bas du corps ↗</a> · <a href="${RENFO_HAUT}" target="_blank" rel="noopener">Haut du corps ↗</a>`;
+const renfoLight = `Mollets, gainage — 25 min · <a href="${RENFO_BAS}" target="_blank" rel="noopener">Programme ↗</a>`;
+
+// ══════════════════════════════════════════════
+// ALLURES
+// ══════════════════════════════════════════════
+function parseTime(str) {
+  const p = str.trim().split(':').map(Number);
+  if (p.length === 2) return p[0]*60 + p[1];
+  if (p.length === 3) return p[0]*3600 + p[1]*60 + p[2];
+  return 0;
+}
+function secToMin(sec) {
+  const m = Math.floor(sec/60), s = Math.round(sec%60);
+  return `${m}'${String(s).padStart(2,'0')}"`;
+}
+function calcAllures(profil) {
+  let s2Sec;
+  if (cheminActif === 'chrono') {
+    const dist = parseInt(document.getElementById('distRef').value);
+    const ch   = document.getElementById('chrono').value;
+    if (!ch) return null;
+    const offset = dist === 5 ? 12 : 25;
+    s2Sec = parseTime(ch) / dist + offset;
+  } else {
+    const dist = parseFloat(document.getElementById('distTest').value);
+    if (!dist) return null;
+    s2Sec = 1200 / dist;
+  }
+  const af = {SE:1.0,M35:1.0,M40:1.02,M45:1.04,M50:1.07,M55:1.10,M60:1.14,M65:1.18}[profil.cat] || 1.0;
+  s2Sec *= af;
+  const s1Sec = s2Sec + 35;
+  const efSec = s1Sec + 50;
+  const maxSec = Math.max(s2Sec - 20, 120);
+  return {
+    ef:secToMin(efSec), s1:secToMin(s1Sec),
+    s2:secToMin(s2Sec), max:secToMin(maxSec)
+  };
+}
+
+// ══════════════════════════════════════════════
+// PHASES & VOLUMES
+// ══════════════════════════════════════════════
+function getVolumeFactor(w, niveau) {
+  const base = {debutant:0.6, intermediaire:1.0, avance:1.35};
+  const prog  = [0.7,0.8,0.9,1.0,1.05,1.1,1.15,1.1,1.0,0.75,0.55,0.25];
+  return (base[niveau]||1.0) * (prog[w]||1.0);
+}
+function getPlanPhase(w) {
+  if (w<3)   return {nom:'Construction',   icon:'🌱', desc:'Adaptation progressive'};
+  if (w<6)   return {nom:'Développement',  icon:'📈', desc:'Seuil 1 dominant'};
+  if (w<9)   return {nom:'Spécifique',     icon:'⚡', desc:'Double seuil — volume max'};
+  if (w===9) return {nom:'Affûtage',       icon:'🔪', desc:'Volume -30%, qualité maintenue'};
+  if (w===10) return {nom:'Réduction',     icon:'😴', desc:'Volume -50% — fraîcheur'};
+  return      {nom:'Semaine de course',   icon:'🏁', desc:'Très léger + compétition'};
+}
+
+// ══════════════════════════════════════════════
+// ══════════════════════════════════════════════
+// DATES & REPOS PAR ÂGE
+// ══════════════════════════════════════════════
+
+// Semaines de décharge allégée selon catégorie
+function getDechargeWeeks(cat) {
+  if (['M60','M65'].includes(cat)) return [2,4,6,8,10]; // toutes les 2 sem
+  if (['M45','M50','M55'].includes(cat)) return [2,5,8];  // toutes les 3 sem
+  return [2,5,8]; // SE/M35/M40 toutes les 3-4 sem (même structure)
+}
+
+// Nombre de jours de repos complet par semaine selon catégorie
+function getNbRepos(cat) {
+  if (['M60','M65'].includes(cat)) return 3;
+  if (['M45','M50','M55'].includes(cat)) return 2;
+  return 1;
+}
+
+// Calcule le lundi de la semaine 1 depuis la date de course
+// La date de course = dimanche semaine 12
+function getStartDate(dateCourse) {
+  if (!dateCourse) return null;
+  const d = new Date(dateCourse);
+  // Aller au dimanche de la semaine de la course
+  const dow = d.getDay(); // 0=dim
+  const diffToDim = dow === 0 ? 0 : 7 - dow;
+  d.setDate(d.getDate() + diffToDim);
+  // Reculer de 11 semaines (83 jours) pour avoir le lundi semaine 1
+  d.setDate(d.getDate() - 83);
+  return d;
+}
+
+// Retourne {lundi, dimanche, label} pour une semaine donnée (0-indexed)
+function getWeekDates(startDate, weekIndex) {
+  if (!startDate) return null;
+  const lundi = new Date(startDate);
+  lundi.setDate(lundi.getDate() + weekIndex * 7);
+  const dim = new Date(lundi);
+  dim.setDate(dim.getDate() + 6);
+  const opts = {day:'numeric', month:'long'};
+  const label = lundi.toLocaleDateString('fr-FR', opts) + ' → ' + dim.toLocaleDateString('fr-FR', opts);
+  return {lundi, dim, label};
+}
+
+// Retourne la date d'un jour spécifique de la semaine (0=lundi, 6=dimanche)
+function getDayDate(startDate, weekIndex, dayIndex) {
+  if (!startDate) return '';
+  const d = new Date(startDate);
+  d.setDate(d.getDate() + weekIndex * 7 + dayIndex);
+  return d.toLocaleDateString('fr-FR', {day:'numeric', month:'long'});
+}
+
+// Injecte un jour de REPOS dans la liste selon la catégorie et la semaine
+function injecterRepos(jours, cat, w) {
+  const nbRepos = getNbRepos(cat);
+  const dechargeWeeks = getDechargeWeeks(cat);
+  const isDecharge = dechargeWeeks.includes(w);
+
+  // Le vendredi repos existe déjà dans les templates — on ajoute selon besoin
+  if (nbRepos >= 2 && !isDecharge) {
+    // M45-M55 : ajouter lundi repos si vendredi pas déjà repos
+    // On cherche le lundi et on le transforme en repos actif
+    const lundiIdx = jours.findIndex(j => j.j === 'Lundi');
+    if (lundiIdx !== -1 && jours[lundiIdx].m && jours[lundiIdx].m.z !== 'repos') {
+      const km = jours[lundiIdx].m.d;
+      // Si c'est une grosse séance le lundi, on la déplace en repos actif
+      jours[lundiIdx] = {
+        j: 'Lundi',
+        m: {t:'REPOS actif', d:'Marche 30 min ou vélo léger — récupération master', z:'repos'},
+        s: null
+      };
+    }
+  }
+  if (nbRepos >= 3) {
+    // M60+ : mercredi aussi en repos
+    const merIdx = jours.findIndex(j => j.j === 'Mercredi');
+    if (merIdx !== -1 && jours[merIdx].m && jours[merIdx].m.z !== 'repos') {
+      jours[merIdx] = {
+        j: 'Mercredi',
+        m: {t:'REPOS complet', d:'48-72h entre intensités recommandé — récupération senior', z:'repos'},
+        s: null
+      };
+    }
+  }
+  return jours;
+}
+
+// ══════════════════════════════════════════════
+// GÉNÉRATION SEMAINE
+// ══════════════════════════════════════════════
+function genSemaine(w, profil, allures) {
+  const vf      = getVolumeFactor(w, profil.niveau);
+  const dist    = parseInt(profil.objectif);
+  let phase     = getPlanPhase(w);
+  const isCourse = w === 11;
+  const isTrail  = profil.terrain === 'trail';
+  const isUltra  = profil.terrain === 'ultra';
+  const dplus    = profil.dplusCourse || 0;
+  const dplusH   = dplus > 0 ? Math.round(dplus/6*vf) : 0;
+  const dplusN   = dplusH > 0 ? ` · D+ ~${dplusH}m` : '';
+  const isMaster = ['M45','M50','M55','M60','M65'].includes(profil.cat);
+  const mNote    = isMaster ? ' (récup. master)' : '';
+  const isExtraUltra = dist >= 100;
+  const efBase   = dist<=10?8:dist<=21?10:dist<=42?12:dist<=60?14:dist<=80?16:dist<=100?18:dist<=150?20:22;
+
+  function longDesc(km) {
+    if (isExtraUltra && dplusH>0) return `${km} km D+ ~${Math.round(dplusH*0.5)} m — allure ultra conservation`;
+    if (isUltra && dplusH>0) return `${km} km avec D+ ~${Math.round(dplusH*0.6)} m`;
+    if (isTrail) return `${km} km avec dénivelé si possible`;
+    return `${km} km EF — allure ${allures.ef}`;
+  }
+  function coteDesc() {
+    const n = dist<=42?'20':'15';
+    if (isExtraUltra) return `${n}×200m montée sèche pente 6-10% / 1'10" — chaîne postérieure${dplusN}`;
+    if (isUltra) return `${n}×200m montée sèche / 1'10" — puissance max${dplusN}`;
+    return `${n}×200m côte / 1'10" — allure ${allures.max}`;
+  }
+  function s1Desc(base) {
+    if (isExtraUltra) return base.replace(/\b(\d+)km/g,'$1km côte pente 6-10%');
+    if (isUltra) return base.replace(/1km/g,'1km côte').replace(/2km/g,'2km côte');
+    if (isTrail) return base + ' (côtes si possible)';
+    return base;
+  }
+  function randoCourseDesc(heures) {
+    const baton = '— bâtons recommandés';
+    const dStr = dplusH > 0 ? ` D+ ~${Math.round(dplusH*0.8)} m` : ' terrain montagneux si possible';
+    return `Rando-course ${heures}h${dStr} ${baton} — gestion lipides, alimentation test`;
+  }
+  function descenteDesc() {
+    return `Descentes techniques 45-60 min pente 8-15% — travail excentrique quadriceps${dplusN}`;
+  }
+  function efVeloDesc(min) {
+    return `Vélo / home-trainer ${min} min EF — cross-training cardio sans traumatisme art. (130-140 bpm)`;
+  }
+
+  let jours = [];
+  if (isCourse) {
+    jours = [
+      {j:'Lundi',    m:{t:'EF léger',      d:`${Math.round(efBase*0.5*vf)} km`,z:'ef'},s:null},
+      {j:'Mardi',    m:{t:'Activation',    d:'4×100m progressif — rester frais',z:'s1'},s:null},
+      {j:'Mercredi', m:{t:'Repos actif',   d:'Marche ou vélo léger 30 min',z:'repos'},s:null},
+      {j:'Jeudi',    m:{t:'EF + striders', d:`${Math.round(efBase*0.4*vf)} km + 6×80m`,z:'ef'},s:null},
+      {j:'Vendredi', m:{t:'REPOS',         d:'Récupération totale',z:'repos'},s:null},
+      {j:'Samedi',   m:{t:'Très léger',    d:`${Math.round(efBase*0.3*vf)} km EF`,z:'ef'},s:null},
+      {j:'Dimanche', m:{t:'🏁 COMPÉTITION',d:`${profil.nomCourse} — ${dist} km`,z:'max'},s:null},
+    ];
+  } else if (w<3) {
+    const qs = dist<=10?`4×6'/1' seuil 1`:dist<=21?`5×8'/1'30" seuil 1`:`4×10'/2' seuil 1`;
+    const samW = isExtraUltra && w%2===1 ? {t:'Descentes techniques',d:descenteDesc(),z:'max'} : {t:'Sortie longue',d:longDesc(Math.round(efBase*1.8*vf)),z:'ef'};
+    jours = [
+      {j:'Lundi',    m:{t:'EF matin',     d:`${Math.round(efBase*vf)} km — allure ${allures.ef}${mNote}`,z:'ef'},  s:{t:'EF soir',   d:`${Math.round(efBase*0.6*vf)} km`,z:'ef'}},
+      {j:'Mardi',    m:{t:'Seuil 1',      d:`${s1Desc(qs)} — allure ${allures.s1}`,z:'s1'},  s:isExtraUltra?{t:'EF vélo',d:efVeloDesc(45),z:'ef'}:{t:'EF récup',d:`${Math.round(efBase*0.7*vf)} km`,z:'ef'}},
+      {j:'Mercredi', m:{t:'EF matin',     d:`${Math.round(efBase*vf)} km`,z:'ef'},                                  s:{t:'Renforcement',d:renfoLink,z:'renfo'}},
+      {j:'Jeudi',    m:isExtraUltra?{t:'Seuil 1 en côte',d:`3×10'/2' seuil 1 — pente 6-10% — allure ${allures.s1}`,z:'s1'}:{t:'Seuil 1',d:`3×10'/2' seuil 1 — allure ${allures.s1}`,z:'s1'}, s:isExtraUltra?{t:'EF vélo',d:efVeloDesc(45),z:'ef'}:{t:'EF récup',d:`${Math.round(efBase*0.7*vf)} km`,z:'ef'}},
+      {j:'Vendredi', m:{t:'EF léger',     d:`${Math.round(efBase*0.8*vf)} km`,z:'ef'},                              s:null},
+      {j:'Samedi',   m:samW,                                                                                              s:null},
+      {j:'Dimanche', m:isExtraUltra?{t:'Rando-course',d:randoCourseDesc(4),z:'ef'}:{t:'EF récup',d:`${Math.round(efBase*1.2*vf)} km`,z:'ef'}, s:{t:'Renforcement',d:renfoLink,z:'renfo'}},
+    ];
+  } else if (w<6) {
+    const s1r = dist<=10?`6×6'/1' seuil 1`:dist<=21?`5×8'/1'30" seuil 1`:`4×12'/2' seuil 1`;
+    const s2r = dist<=10?`8×1km/1' seuil 2`:dist<=21?`6×1,5km/1'30" seuil 2`:`5×2km/2' seuil 2`;
+    const samW6 = isExtraUltra && w%2===1 ? {t:'Descentes techniques',d:descenteDesc(),z:'max'} : {t:'Côtes puissance',d:coteDesc(),z:'max'};
+    jours = [
+      {j:'Lundi',    m:{t:'EF matin',           d:`${Math.round(efBase*vf)} km — allure ${allures.ef}${mNote}`,z:'ef'},s:{t:'EF soir',      d:`${Math.round(efBase*0.7*vf)} km`,z:'ef'}},
+      {j:'Mardi',    m:{t:isExtraUltra?'Seuil 1 (Norwegian Singles)':'Double seuil 1', d:`${s1Desc(s1r)} — allure ${allures.s1}`,z:'s1'}, s:isExtraUltra?{t:'EF vélo',d:efVeloDesc(50),z:'ef'}:{t:'EF récup',d:`${Math.round(efBase*0.8*vf)} km`,z:'ef'}},
+      {j:'Mercredi', m:{t:'EF matin',            d:`${Math.round(efBase*vf)} km`,z:'ef'},                               s:{t:'Renforcement', d:renfoLink,z:'renfo'}},
+      {j:'Jeudi',    m:isExtraUltra?{t:'Seuil 1 en côte',d:`${s1Desc(s1r)} — pente 6-10% — allure ${allures.s1}`,z:'s1'}:{t:'Double seuil 2',d:`${s1Desc(s2r)} — allure ${allures.s2}`,z:'s2'}, s:isExtraUltra?{t:'EF vélo',d:efVeloDesc(50),z:'ef'}:{t:'EF récup',d:`${Math.round(efBase*0.8*vf)} km`,z:'ef'}},
+      {j:'Vendredi', m:{t:'EF léger',            d:`${Math.round(efBase*0.8*vf)} km`,z:'ef'},                           s:null},
+      {j:'Samedi',   m:samW6,                                                                                             s:null},
+      {j:'Dimanche', m:isExtraUltra?{t:'Rando-course',d:randoCourseDesc(5),z:'ef'}:{t:'Sortie longue',d:longDesc(Math.round(efBase*2.2*vf)),z:'ef'}, s:{t:'Renforcement', d:renfoLink,z:'renfo'}},
+    ];
+  } else if (w<9) {
+    const sf = dist<=10?`5×6'/1' + 10×1km/1' seuil 1`:dist<=21?`4×8'/1'30" + 5×2km/2' seuil 1`:`3×12'/2' + 4×3km/2' seuil 1`;
+    const sq = dist<=10?`5×2km/1' + 25×400m/30" seuil 2`:dist<=21?`4×3km/2' + 15×600m/45" seuil 2`:`3×5km/2' + 10×1km/1' seuil 2`;
+    const samW9 = isExtraUltra && w%2===1 ? {t:'Descentes techniques',d:descenteDesc(),z:'max'} : {t:'Côtes max',d:coteDesc(),z:'max'};
+    const randoH = dist>=180 ? 8 : dist>=140 ? 6 : 5;
+    jours = [
+      {j:'Lundi',    m:{t:'EF matin',                d:`${Math.round(efBase*vf)} km — allure ${allures.ef}${mNote}`,z:'ef'},s:{t:'EF soir',       d:`${Math.round(efBase*0.8*vf)} km`,z:'ef'}},
+      {j:'Mardi',    m:{t:isExtraUltra?'Seuil 1 (Norwegian Singles)':'Double seuil COMPLET', d:s1Desc(sf),z:'s1'}, s:isExtraUltra?{t:'EF vélo',d:efVeloDesc(60),z:'ef'}:{t:'EF récup',d:`${Math.round(efBase*0.8*vf)} km`,z:'ef'}},
+      {j:'Mercredi', m:{t:'EF matin',                d:`${Math.round(efBase*vf)} km`,z:'ef'},                                s:{t:'Renforcement',  d:renfoFull,z:'renfo'}},
+      {j:'Jeudi',    m:isExtraUltra?{t:'Séance spécifique côte',d:s1Desc(sq)+' — pente 6-10%',z:'s2'}:{t:'Séance qualité complète',d:s1Desc(sq),z:'s2'}, s:isExtraUltra?{t:'EF vélo',d:efVeloDesc(60),z:'ef'}:{t:'EF récup',d:`${Math.round(efBase*0.8*vf)} km`,z:'ef'}},
+      {j:'Vendredi', m:{t:'EF léger',                d:`${Math.round(efBase*0.8*vf)} km`,z:'ef'},                            s:null},
+      {j:'Samedi',   m:samW9,                                                                                                   s:null},
+      {j:'Dimanche', m:isExtraUltra?{t:`Rando-course spécifique`,d:randoCourseDesc(randoH),z:'ef'}:{t:'Sortie longue spécifique',d:longDesc(Math.round(efBase*2.5*vf))+' avec 20% seuil 1',z:'s1'}, s:{t:'Renforcement',  d:renfoLink,z:'renfo'}},
+    ];
+  } else if (w===9) {
+    jours = [
+      {j:'Lundi',    m:{t:'EF',            d:`${Math.round(efBase*vf*0.7)} km`,z:'ef'},   s:{t:'EF soir',   d:`${Math.round(efBase*0.5*vf)} km`,z:'ef'}},
+      {j:'Mardi',    m:{t:'Seuil 1 réduit',d:`4×6'/1' seuil 1 — allure ${allures.s1}`,z:'s1'},s:{t:'EF récup',d:`${Math.round(efBase*0.6*vf)} km`,z:'ef'}},
+      {j:'Mercredi', m:{t:'EF',            d:`${Math.round(efBase*0.8*vf)} km`,z:'ef'},   s:{t:'Renforcement léger',d:renfoLight,z:'renfo'}},
+      {j:'Jeudi',    m:{t:'Seuil 2 court', d:`6×1km/1' seuil 2 — allure ${allures.s2}`,z:'s2'},s:{t:'EF récup',d:`${Math.round(efBase*0.6*vf)} km`,z:'ef'}},
+      {j:'Vendredi', m:{t:'EF léger',      d:`${Math.round(efBase*0.6*vf)} km`,z:'ef'},   s:null},
+      {j:'Samedi',   m:{t:'Sortie moyenne',d:`${Math.round(efBase*1.5*vf)} km EF`,z:'ef'},s:null},
+      {j:'Dimanche', m:{t:'EF récup',      d:`${Math.round(efBase*0.9*vf)} km`,z:'ef'},   s:{t:'Renforcement',d:renfoLight,z:'renfo'}},
+    ];
+  } else {
+    jours = [
+      {j:'Lundi',    m:{t:'EF léger',    d:`${Math.round(efBase*0.45*vf)} km`,z:'ef'},    s:null},
+      {j:'Mardi',    m:{t:'Seuil 1 mini',d:`3×6'/1' seuil 1 — allure ${allures.s1}`,z:'s1'},s:{t:'EF',d:`${Math.round(efBase*0.35*vf)} km`,z:'ef'}},
+      {j:'Mercredi', m:{t:'REPOS',       d:'Récupération totale',z:'repos'},               s:null},
+      {j:'Jeudi',    m:{t:'EF + striders',d:`${Math.round(efBase*0.35*vf)} km + 6×80m vif`,z:'ef'},s:null},
+      {j:'Vendredi', m:{t:'REPOS',       d:'Préparation mentale et matériel',z:'repos'},   s:null},
+      {j:'Samedi',   m:{t:'Très léger',  d:`${Math.round(efBase*0.25*vf)} km EF`,z:'ef'}, s:null},
+      {j:'Dimanche', m:{t:'EF calme',    d:`${Math.round(efBase*0.35*vf)} km`,z:'ef'},    s:null},
+    ];
+  }
+
+  // Adapter selon âge : repos supplémentaires
+  jours = injecterRepos(jours, profil.cat, w);
+
+  // Semaine de décharge allégée : réduire volumes de 25%
+  const dechargeWeeks = getDechargeWeeks(profil.cat);
+  if (dechargeWeeks.includes(w) && w < 9) {
+    jours = jours.map(j => {
+      const adapt = (s) => {
+        if (!s || s.z === 'repos' || s.z === 'renfo') return s;
+        // Réduire les km dans la description
+        const d2 = s.d.replace(/\b(\d+)\s*km/g, (m,n) => Math.round(parseInt(n)*0.75)+' km');
+        return {...s, d:d2};
+      };
+      return {...j, m:adapt(j.m), s:adapt(j.s)};
+    });
+    phase = {...phase, nom: phase.nom+' ↓', desc: 'Semaine allégée — -25% volume · récupération active'};
+  }
+
+  return {phase, jours};
+}
+
+// ══════════════════════════════════════════════
+// RENDER
+// ══════════════════════════════════════════════
+function zoneClass(z) {
+  return {ef:'s-ef',s1:'s-s1',s2:'s-s2',max:'s-max',renfo:'s-renfo',repos:'s-repos'}[z]||'s-ef';
+}
+var MSGS = {
+  0:  ["Le voyage de 200 km commence par le premier pas. Reviens demain !","Chaque champion a eu un jour sans course. Ce jour-ci comptera aussi.","Repos ou oubli ? Peu importe - demain on repart !"],
+  25: ["Tu as demarre - c'est toujours mieux que de ne pas avoir essaye.","25% c'est un quart de fait. Le reste t'attend.","Bon debut. Continue sur cette lancee."],
+  50: ["La moitie du chemin est faite. L'autre moitie te tend les bras.","50% c'est solide. Tu tiens le cap.","Mi-semaine accomplie. Le corps s'adapte."],
+  75: ["Presque la ! Une belle semaine se dessine.","75% - tu construis quelque chose de solide.","Le corps enregistre chaque effort. Continue."],
+  99: ["Semaine quasi-parfaite ! Le corps dit merci.","99% - perfectionniste ? Ca se voit sur les sentiers.","Presque 100%. Tu es dans le bon wagon."],
+  100:["SEMAINE PARFAITE. Le 200 km se construit seance par seance.","100% ! Kilian Jornet approuverait.","Semaine pleine. Dors bien - c'est la que les progres se font."]
+};
+function getMsg(pct){var keys=[100,99,75,50,25,0];var key=keys.find(function(k){return pct>=k;});var arr=MSGS[key]||MSGS[0];return arr[Math.floor(Math.random()*arr.length)];}
+function checkKey(w,ji,slot){return 'snp_w'+w+'_j'+ji+'_'+slot;}
+function getCheck(w,ji,slot){try{return localStorage.getItem(checkKey(w,ji,slot))==='1';}catch(e){return false;}}
+function setCheck(w,ji,slot,val){try{localStorage.setItem(checkKey(w,ji,slot),val?'1':'0');}catch(e){}}
+function updateSummary(w){
+  var sd=planData.semaines[w];
+  var total=0,done=0;
+  sd.jours.forEach(function(jour,ji){
+    if(jour.m){total++;if(getCheck(w,ji,'m'))done++;}
+    if(jour.s){total++;if(getCheck(w,ji,'s'))done++;}
+  });
+  var pct=total>0?Math.round(done/total*100):0;
+  document.getElementById('wsSumBar').style.width=pct+'%';
+  document.getElementById('wsSumPct').textContent=pct+'%';
+  document.getElementById('wsSumDetail').textContent=done+' seance'+(done>1?'s':'')+' effectuee'+(done>1?'s':'')+' sur '+total;
+  document.getElementById('wsSumMsg').textContent=getMsg(pct);
+  document.getElementById('weekSummary').style.display='block';
+}
+function onCheck(w,ji,slot,el){
+  setCheck(w,ji,slot,el.checked);
+  var sessionEl=el.closest('.session');
+  if(sessionEl)sessionEl.classList.toggle('done',el.checked);
+  var lbl=el.parentElement.querySelector('.session-check-label');
+  if(lbl)lbl.textContent=el.checked?'Seance effectuee':'Marquer comme effectuee';
+  updateSummary(w);
+}
+function renderSemaine(w) {
+  if (!planData) return;
+  const sd = planData.semaines[w];
+  document.getElementById('weekNum').textContent = `Semaine ${w+1} / 12`;
+  document.getElementById('weekPhase').textContent = `${sd.phase.icon} ${sd.phase.nom} — ${sd.phase.desc}`;
+  document.getElementById('weekProgressFill').style.width = `${((w+1)/12)*100}%`;
+  document.getElementById('btnPrev').disabled = w===0;
+  document.getElementById('btnNext').disabled = w===11;
+
+  // Afficher la plage de dates de la semaine
+  const wdEl = document.getElementById('weekDates');
+  if (wdEl && planData.startDate) {
+    const wd = getWeekDates(planData.startDate, w);
+    wdEl.textContent = wd ? wd.label : '';
+  }
+
+  const grid = document.getElementById('weekGrid');
+  grid.innerHTML = '';
+  const joursOrdre = ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'];
+  sd.jours.forEach(function(jour, ji) {
+    const card = document.createElement('div');
+    card.className = 'day-card';
+    const sessions = [jour.m, jour.s].filter(Boolean);
+    const dayIdx = joursOrdre.indexOf(jour.j);
+    const dayDate = planData.startDate && dayIdx >= 0 ? getDayDate(planData.startDate, w, dayIdx) : '';
+    function sHTML(s, slot) {
+      if (!s) return '';
+      const isDone = getCheck(w, ji, slot);
+      const ckId = 'ck_'+w+'_'+ji+'_'+slot;
+      return '<div class="session '+zoneClass(s.z)+(isDone?' done':'')+'"><span class="session-time">'+(slot==='m'?'Matin':'Soir')+'</span><div class="session-content"><div class="session-title">'+s.t+'</div><div class="session-detail">'+s.d+'</div></div></div>'
+        +'<label class="session-check" for="'+ckId+'"><input type="checkbox" id="'+ckId+'" data-w="'+w+'" data-ji="'+ji+'" data-slot="'+slot+'" '+(isDone?'checked':'')+' onchange="onCheck(+this.dataset.w,+this.dataset.ji,this.dataset.slot,this)"/><span class="session-check-label">'+(isDone?'Seance effectuee':'Marquer comme effectuee')+'</span></label>';
+    }
+    card.innerHTML = '<div class="day-header"><span class="day-name">'+jour.j+(dayDate?' <span style="font-size:.68rem;font-weight:600;opacity:.65;">'+dayDate+'</span>':'')+'</span><span class="day-vol">'+sessions.length+' seance'+(sessions.length>1?'s':'')+'</span></div><div class="day-sessions">'+sHTML(jour.m,'m')+sHTML(jour.s,'s')+'</div>';
+    grid.appendChild(card);
+  });
+  updateSummary(w);
+}
+function changerSemaine(dir) {
+  currentWeek = Math.max(0, Math.min(11, currentWeek+dir));
+  renderSemaine(currentWeek);
+  document.getElementById('planOutput').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ══════════════════════════════════════════════
+// GÉNÉRER
+// ══════════════════════════════════════════════
+function genererPlan() {
+  const profil = {
+    cat:        document.getElementById('catAge').value,
+    niveau:     document.getElementById('niveau').value,
+    objectif:   document.getElementById('objectif').value,
+    terrain:    document.getElementById('terrain').value,
+    dplusCourse:parseInt(document.getElementById('dplusCourse').value)||0,
+    nomCourse:  document.getElementById('nomCourse').value||'Ma compétition',
+    dateCourse: document.getElementById('dateCourse').value,
+  };
+  const dist = parseInt(profil.objectif);
+  const allures = calcAllures(profil);
+  if (!allures) { showToast('⚠️ Entre un chrono ou une distance de test !'); return; }
+
+  const semaines = [];
+  for (let w=0; w<12; w++) semaines.push(genSemaine(w, profil, allures));
+  const startDate = getStartDate(profil.dateCourse);
+  planData = {profil, allures, semaines, startDate, genereLe: new Date().toISOString()};
+  currentWeek = 0;
+
+  const dateFmt = profil.dateCourse
+    ? new Date(profil.dateCourse).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'})
+    : 'Date à définir';
+  const startDateFmt = startDate
+    ? startDate.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'})
+    : '';
+  const planRangeFmt = startDateFmt ? `${startDateFmt} → ${dateFmt}` : dateFmt;
+  const terrainLabel = {route:'🏙️ Route',trail:'🌲 Trail mixte',ultra:'⛰️ Ultra D+'}[profil.terrain];
+  const dplusLabel = profil.dplusCourse>0 ? `<span>⛰️ D+ ${profil.dplusCourse.toLocaleString()} m</span>` : '';
+
+  const ultraBanner = dist >= 150
+    ? `<div style="background:#7c2d12;border-radius:10px;padding:12px 16px;margin-bottom:14px;font-size:.82rem;color:#fef3c7;line-height:1.7;"><strong style="display:block;margin-bottom:4px;">⛰️ Plan Ultra Extrême ${dist} km — Adaptations activées</strong>Norwegian Singles (1 seuil/j) · Seuil en côte jeudi · EF vélo cross-training · Rando-course dimanche · Samedi alterné côtes/descentes</div>`
+    : '';
+  document.getElementById('planHeader').innerHTML = `
+    ${ultraBanner}
+    <div class="plan-title">🏔️ ${profil.nomCourse}</div>
+    <div class="plan-meta">
+      <span>📅 ${dateFmt}</span>
+      ${startDateFmt ? `<span>🗓️ Plan : ${planRangeFmt}</span>` : ''}
+      <span>🏃 ${profil.objectif} km</span>
+      <span>👤 ${profil.cat}</span>
+      <span>📊 ${profil.niveau.charAt(0).toUpperCase()+profil.niveau.slice(1)}</span>
+      <span>${terrainLabel}</span>
+      ${dplusLabel}
+    </div>
+    <div class="plan-allures">
+      <div class="pac-card"><div class="pac-val">${allures.ef}</div><div class="pac-lbl">🟢 EF</div></div>
+      <div class="pac-card"><div class="pac-val">${allures.s1}</div><div class="pac-lbl">🟡 Seuil 1</div></div>
+      <div class="pac-card"><div class="pac-val">${allures.s2}</div><div class="pac-lbl">🟠 Seuil 2</div></div>
+      <div class="pac-card"><div class="pac-val">${allures.max}</div><div class="pac-lbl">🔴 Max / Côtes</div></div>
+    </div>`;
+
+  document.getElementById('planOutput').style.display = 'block';
+  renderSemaine(0);
+  showToast('✅ Plan généré !');
+  setTimeout(() => document.getElementById('planOutput').scrollIntoView({behavior:'smooth'}), 200);
+}
+
+function imprimerSemaine() {
+  if (!planData) return;
+  var w = currentWeek;
+  var sd = planData.semaines[w];
+  var p = planData.profil;
+  var joursOrdre = ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'];
+  var wd = planData.startDate ? getWeekDates(planData.startDate, w) : null;
+  var dateFmt = p.dateCourse ? new Date(p.dateCourse).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}) : '';
+  var zBg = {ef:'#dcfce7',s1:'#fef9c3',s2:'#ffedd5',max:'#fee2e2',renfo:'#ede9fe',repos:'#f3f4f6'};
+  var zTc = {ef:'#166534',s1:'#854d0e',s2:'#9a3412',max:'#991b1b',renfo:'#5b21b6',repos:'#6b7280'};
+
+  var total=0,done=0,rows='';
+  sd.jours.forEach(function(jour,ji) {
+    var dayDate = planData.startDate ? getDayDate(planData.startDate, w, joursOrdre.indexOf(jour.j)) : '';
+    function slotRow(s,slot) {
+      if (!s) return '';
+      var isDone=getCheck(w,ji,slot);
+      total++;if(isDone)done++;
+      var bg=zBg[s.z]||'#f9fafb';var tc=zTc[s.z]||'#374151';
+      var box='<span style="display:inline-block;width:13px;height:13px;border:1.5px solid #9ca3af;border-radius:3px;margin-right:5px;vertical-align:middle;background:'+(isDone?'#2d9e72':'#fff')+';">'+(isDone?'':' ')+'</span>';
+      var dl=isDone?' <span style="color:#2d9e72;font-weight:700;font-size:9px;">Effectuee</span>':'';
+      return '<tr><td style="padding:6px 9px;font-weight:700;font-size:10px;border-bottom:1px solid #e5e7eb;white-space:nowrap;">'+(slot==='m'?'Matin':'Soir')+'</td><td style="padding:6px 9px;background:'+bg+';border-bottom:1px solid #e5e7eb;"><div style="font-weight:700;color:'+tc+';font-size:10px;">'+s.t+dl+'</div><div style="color:#6b7280;font-size:9px;margin-top:1px;">'+s.d+'</div></td><td style="padding:6px 9px;text-align:center;border-bottom:1px solid #e5e7eb;">'+box+'</td></tr>';
+    }
+    rows+='<tr style="background:#f0fdf4;"><td colspan="3" style="padding:7px 9px;font-weight:800;color:#1a4a32;font-size:11px;border-bottom:1px solid #d8ece4;">'+jour.j+(dayDate?' - '+dayDate:'')+'</td></tr>';
+    rows+=slotRow(jour.m,'m')+slotRow(jour.s,'s');
+  });
+  var pct=total>0?Math.round(done/total*100):0;
+  var al=planData.allures?'<div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:8px;"><span style="background:#dcfce7;color:#166534;border-radius:5px;padding:2px 9px;font-size:9px;font-weight:700;">EF '+planData.allures.ef+'</span><span style="background:#fef9c3;color:#854d0e;border-radius:5px;padding:2px 9px;font-size:9px;font-weight:700;">S1 '+planData.allures.s1+'</span><span style="background:#ffedd5;color:#9a3412;border-radius:5px;padding:2px 9px;font-size:9px;font-weight:700;">S2 '+planData.allures.s2+'</span><span style="background:#fee2e2;color:#991b1b;border-radius:5px;padding:2px 9px;font-size:9px;font-weight:700;">Max '+planData.allures.max+'</span></div>':'';
+  var html='<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><title>Semaine '+(w+1)+' - '+p.nomCourse+'</title>'
+    +'<style>@page{size:A4 portrait;margin:1.4cm;}*{box-sizing:border-box;margin:0;padding:0;}body{font-family:Arial,Helvetica,sans-serif;font-size:10px;color:#1f2937;}</style>'
+    +'</head><body>'
+    +'<div style="border-bottom:3px solid #1a4a32;padding-bottom:10px;margin-bottom:12px;">'
+    +'<div style="font-size:17px;font-weight:800;color:#1a4a32;">'+p.nomCourse+'</div>'
+    +'<div style="font-size:10px;color:#6b7280;margin-top:2px;">'+p.objectif+' km - '+p.cat+' - '+p.niveau+(dateFmt?' - '+dateFmt:'')+(p.dplusCourse>0?' - D+ '+p.dplusCourse.toLocaleString()+' m':'')+'</div>'
+    +al+'</div>'
+    +'<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">'
+    +'<div><div style="font-size:13px;font-weight:800;color:#1a4a32;">Semaine '+(w+1)+'/12 - '+sd.phase.icon+' '+sd.phase.nom+'</div>'
+    +(wd?'<div style="font-size:9px;color:#6b7280;">'+wd.label+'</div>':'')
+    +'<div style="font-size:9px;color:#9ca3af;">'+sd.phase.desc+'</div></div>'
+    +'<div style="text-align:right;"><div style="font-size:18px;font-weight:800;color:#2d9e72;">'+pct+'%</div>'
+    +'<div style="font-size:9px;color:#6b7280;">'+done+'/'+total+' seances</div></div></div>'
+    +'<div style="background:#e5e7eb;border-radius:4px;height:7px;margin-bottom:12px;"><div style="width:'+pct+'%;background:#2d9e72;height:100%;border-radius:4px;"></div></div>'
+    +'<table style="width:100%;border-collapse:collapse;">'
+    +'<thead><tr><th style="text-align:left;padding:6px 9px;background:#1a4a32;color:#a8f0d0;font-size:9px;border-radius:8px 0 0 0;">Moment</th>'
+    +'<th style="text-align:left;padding:6px 9px;background:#1a4a32;color:#a8f0d0;font-size:9px;">Seance</th>'
+    +'<th style="text-align:center;padding:6px 9px;background:#1a4a32;color:#a8f0d0;font-size:9px;border-radius:0 8px 0 0;">Fait</th></tr></thead>'
+    +'<tbody>'+rows+'</tbody></table>'
+    +'<div style="margin-top:12px;padding:9px 12px;background:#f0fdf4;border-radius:8px;font-size:9px;color:#6b7280;border:1px solid #d8ece4;">'
+    +'Les coches sont sauvegardees dans le navigateur de cet appareil uniquement. - Seb Run Nature - seb-run-nature.com</div>'
+    +'</body></html>';
+  var win=window.open('','_blank','width=800,height=600');
+  if(!win){alert('Autorise les popups pour imprimer.');return;}
+  win.document.write(html);win.document.close();win.focus();
+  setTimeout(function(){win.print();},400);
+}
+
+// ══════════════════════════════════════════════
+// SAVE / EXPORT / IMPORT
+// ══════════════════════════════════════════════
+function sauvegarder() {
+  if (!planData) return;
+  localStorage.setItem('planNorveH', JSON.stringify(planData));
+  showToast('💾 Plan sauvegardé !');
+}
+function exporterJSON() {
+  if (!planData) return;
+  const blob = new Blob([JSON.stringify(planData, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `plan-norvegien-homme-${planData.profil.nomCourse.replace(/\s/g,'-')}.json`;
+  a.click();
+  showToast('📤 Plan exporté !');
+}
+function importerJSON(e) {
+  const f = e.target.files[0];
+  if (!f) return;
+  const r = new FileReader();
+  r.onload = ev => {
+    try {
+      planData = JSON.parse(ev.target.result);
+      document.getElementById('planOutput').style.display = 'block';
+      renderSemaine(0);
+      showToast('📥 Plan importé !');
+    } catch { showToast('❌ Fichier invalide'); }
+  };
+  r.readAsText(f);
+}
+function resetPlan() {
+  if (!confirm('Effacer le plan sauvegardé ?')) return;
+  localStorage.removeItem('planNorveH');
+  planData = null;
+  document.getElementById('planOutput').style.display = 'none';
+  showToast('🗑 Plan effacé.');
+}
+function setChemin(c) {
+  cheminActif = c;
+  document.getElementById('btnChrono').classList.toggle('active', c==='chrono');
+  document.getElementById('btnTest').classList.toggle('active', c==='test');
+  document.getElementById('sectionChrono').classList.toggle('show', c==='chrono');
+  document.getElementById('sectionTest').classList.toggle('show', c==='test');
+}
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ══════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  // Année footer
+  const fy = document.getElementById('footerYear');
+  if (fy) fy.textContent = new Date().getFullYear();
+  // D+ toggle
+  document.getElementById('terrain').addEventListener('change', function() {
+    const g = document.getElementById('dplusGroup');
+    g.style.display = this.value !== 'route' ? 'flex' : 'none';
+    g.style.flexDirection = 'column'; g.style.gap = '6px';
+  });
+  // Date par défaut +12 semaines
+  const d = new Date(); d.setDate(d.getDate()+84);
+  document.getElementById('dateCourse').value = d.toISOString().slice(0,10);
+  // Restaurer
+  const saved = localStorage.getItem('planNorveH');
+  if (saved) {
+    try {
+      planData = JSON.parse(saved);
+      document.getElementById('planOutput').style.display = 'block';
+      renderSemaine(0);
+      showToast('💾 Plan précédent restauré !');
+    } catch {}
+  }
+});
+</script>
+</body>
+</html>
