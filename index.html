@@ -159,6 +159,15 @@ small{font-size:.72rem;color:var(--mut);}
   .plan-allures{grid-template-columns:1fr 1fr;}
 }
 </style>
+  <link rel="manifest" href="/plan-norvegien-homme/manifest.json">
+<meta name="theme-color" content="#1a4a32">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Plan Norvégien">
+<script>
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('/plan-norvegien-homme/sw.js');
+}
+</script>
 </head>
 <body>
 
