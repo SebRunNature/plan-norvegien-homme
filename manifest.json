@@ -1,0 +1,17 @@
+{
+  "name": "Plan Norvégien Trail Homme",
+  "short_name": "Plan Norvégien",
+  "description": "Plan d'entraînement méthode norvégienne trail — Seb Run Nature",
+  "start_url": "/plan-norvegien-homme/",
+  "display": "standalone",
+  "background_color": "#f4f8f5",
+  "theme_color": "#1a4a32",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://www.seb-run-nature.com/favicon.ico",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
