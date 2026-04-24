@@ -1,4 +1,4 @@
-const CACHE = 'srn-plan-homme-v4';
+const CACHE = 'srn-plan-homme-v8';
 const FILES = [
   '/plan-norvegien-homme/',
   '/plan-norvegien-homme/index.html',
